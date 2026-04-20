@@ -24,6 +24,11 @@ O dashboard foi dividido em duas visões estratégicas:
 * **Análise Geral**: Monitoramento de faturamento (66.67 Mi) e saúde financeira.
 * **Gestão de Entregas**: Foco em eficiência operacional e monitoramento de 52.40 Mi em risco por atrasos.
 
+
+## 💡 Insights de Conselheiro Estratégico
+* **Risco Financeiro**: Identificamos que a maioria do valor retido em atrasos pertence ao fornecedor Minerva.
+* **Gargalo Operacional**: A média de entrega de 18 dias está acima da meta estipulada, sugerindo revisão de contratos.
+
 ## 🔍 Transparência
 Os dados são **fictícios** e utilizados apenas para fins de estudo, mas todo o fluxo de **ETL → SQL → Power BI** reflete práticas aplicáveis em cenários reais.  
 
@@ -31,12 +36,5 @@ Os dados são **fictícios** e utilizados apenas para fins de estudo, mas todo o
 
 
 
-
 ✍️ Desenvolvido por [Alessio Ricardo]  
 🔗 (https://www.linkedin.com/in/alessio-ricardo/) | (https://github.com/AlessioCrf)
-
-
-## 💡 Insights de Conselheiro Estratégico
-* **Risco Financeiro**: Identificamos que a maioria do valor retido em atrasos pertence ao fornecedor [NOME].
-* **Gargalo Operacional**: A média de entrega de 18 dias está acima da meta estipulada, sugerindo revisão de contratos.
-
