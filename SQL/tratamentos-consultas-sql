@@ -1,0 +1,114 @@
+### 🖥️ Scripts SQL Utilizados
+
+--- CONSULTA PARA SABER A QTD DE MATERIA PRIMA E SEU NOME 
+SELECT c.[Materia Prima], m.[Nome MP] ,COUNT(*) as qtd_mp
+FROM fCompras$ as c
+JOIN dMateriaPrima$ as m
+ON c.[Materia Prima] = m.[Codigo MP]
+GROUP BY c.[Materia Prima], m.[Nome MP]
+ORDER BY [Materia Prima] ASC
+
+---- CRIANDO UMA TABELA CALENDARIO 
+SELECT 
+    MIN([Data Pedido]) AS DataInicial,
+    MAX([Data Pedido]) AS DataFinal
+FROM fCompras$;
+
+CREATE TABLE Calendario (
+    Data DATE PRIMARY KEY,
+    Ano INT,
+    Mes INT,
+    NomeMes VARCHAR(20),
+    AnoMes VARCHAR(7),
+    Trimestre INT,
+    DiaSemana INT,
+    NomeDiaSemana VARCHAR(25)
+);
+
+SET LANGUAGE Portuguese;
+
+DECLARE @DataAtual DATE = '2019-01-20';
+DECLARE @DataFinal DATE = '2022-01-01';
+
+WHILE @DataAtual <= @DataFinal
+BEGIN
+    INSERT INTO Calendario (Data, Ano, Mes, NomeMes, AnoMes, Trimestre, DiaSemana, NomeDiaSemana)
+    VALUES (
+        @DataAtual,
+        YEAR(@DataAtual),
+        MONTH(@DataAtual),
+        DATENAME(MONTH, @DataAtual),
+        FORMAT(@DataAtual, 'yyyy-MM'),
+        DATEPART(QUARTER, @DataAtual),
+        DATEPART(WEEKDAY, @DataAtual),
+        DATENAME(WEEKDAY, @DataAtual)
+    );
+
+    SET @DataAtual = DATEADD(DAY, 1, @DataAtual);
+END
+
+
+---- CONSULTA MEDIA DE DIAS PARA ENTREGA DE CADA MATERIA PRIMA POR FORNECEDOR 
+SELECT 
+	  m.[Nome MP],
+	  f.[Nome Fornecedor],
+	  c.[Fornecedor],
+	  AVG(DATEDIFF(DAY,c.[Data Saída],c.[Data Entrega])) as mediaentrega
+FROM fCompras$ as c
+Join dMateriaPrima$ as m 
+ON c.[Materia Prima] = M.[Codigo MP]
+JOIN dFornecedor$ as f
+ON c.Fornecedor = f.[Codigo Fornecedor]
+GROUP BY m.[Nome MP],c.Fornecedor,f.[Nome Fornecedor]
+ORDER BY mediaentrega ASC
+
+SELECT *
+FROM fCompras$
+
+---- TRATANDO O VALOR DO DESCONTO 
+
+ALTER TABLE fCompras$
+ADD DESCONTO2 INT;
+
+UPDATE fCompras$
+SET DESCONTO2 = [Desconto (%)]
+
+
+UPDATE fCompras$
+SET [Desconto (%)] = [Desconto (%)] / 100.0;
+
+
+-----------------------------------------------------
+---COMPRADOR QUE MAIS FEZ PEDIDOS 
+SELECT  ca.Ano,
+        com.[Nome Comprador],
+		m.[Nome MP],
+		SUM(Quantidade) as totalpedido
+FROM fCompras$ as c
+Join Calendario as ca
+ON c.[Data Pedido] = ca.Data
+Join dComprador$ as com
+ON c.Comprador = com.[Codigo Comprador]
+Join dMateriaPrima$ as m
+ON c.[Materia Prima] = m.[Codigo MP]
+GROUP BY ca.Ano, com.[Nome Comprador], m.[Nome MP]
+ORDER BY totalpedido DESC
+
+------------------------------------------------------------
+---TOTAL DE GASTO POR COMPRADOR 
+SELECT ca.AnoMes,
+	   com.[Nome Comprador],
+	   m.[Nome MP],
+	   ROUND(SUM(c.Quantidade * m.[Custo Unitário] * ( 1 - ISNULL(c.[Desconto (%)],0))),2) as totalgasto
+FROM fCompras$ as c
+JOIN Calendario as ca
+ON c.[Data Pedido] = ca.Data
+JOIN dComprador$ as com
+ON c.Comprador = com.[Codigo Comprador]
+JOIN dMateriaPrima$ as m 
+ON c.[Materia Prima] = m.[Codigo MP]
+GROUP BY ca.AnoMes,
+	   com.[Nome Comprador],
+	   m.[Nome MP]
+ORDER BY AnoMes ASC
+
