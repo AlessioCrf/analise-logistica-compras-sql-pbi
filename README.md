@@ -24,6 +24,8 @@ O dashboard foi dividido em duas visões estratégicas:
 * **Análise Geral**: Monitoramento de faturamento (66.67 Mi) e saúde financeira.
 * **Gestão de Entregas**: Foco em eficiência operacional e monitoramento de 52.40 Mi em risco por atrasos.
 
+### Demonstração
+Um vídeo mostrando a dashboard em funcionamento está disponível no meu [LinkedIn](https://www.linkedin.com/in/alessio-ricardo/).
 
 ## 💡 Insights de Conselheiro Estratégico
 * **Risco Financeiro**: Identificamos que a maioria do valor retido em atrasos pertence ao fornecedor Minerva.
