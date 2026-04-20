@@ -3,9 +3,15 @@
 ## 📌 Visão Geral
 Este projeto analisa uma operação logística com mais de 9.000 pedidos, focando na identificação de gargalos financeiros causados por atrasos de entregas.
 
+## 🛠️ Tecnologias Utilizadas
+- **SQL Server** → tratamento, limpeza e modelagem de dados.    
+- **Power BI** → criação de relatórios e storytelling visual.  
+- **Figma** → design da capa e telas de fundo do dashboard.  
+- *(Excel apenas como apoio inicial para recebimento da base).*
+
 ## 📂 Estrutura do Repositório
 * **/SQL**: Scripts de DDL (criação), ETL (limpeza) e Views analíticas.
-* **/PowerBI**: Arquivo .pbix e capturas de tela das análises.
+* **/PowerBI**: Capturas de tela das análises.
 
 ## 🛠️ Tratamento e Engenharia de Dados (SQL Server)
 Diferente do projeto anterior, aqui o foco foi a **performance**:
